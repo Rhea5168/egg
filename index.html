@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>金錢價值翻譯機 - 你的忍耐值多少？</title>
+    <!-- Google AdSense 廣告碼 (已依使用者要求加入) -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2278581687192636"
+     crossorigin="anonymous"></script>
+    <!-- 引入 Inter 字體 -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --main-bg-color: #00b894; /* 鮮綠色 - 積極儲蓄 */
+            --header-color: #ffffff;
+            --card-bg-color: #dfe6e9; /* 淺灰色 */
+            --text-color: #2d3436; /* 深藍灰 */
+            --button-color: #e84393; /* 亮粉色 - 衝擊按鈕 */
+            --button-hover-color: #d62d7c;
+            --output-color: #e17055; /* 醒目橘色 */
+            --box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            --pro-color: #ffc107; /* 黃色鈔票色 */
+            --border-color: #b2bec3;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--main-bg-color);
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            min-height: 100vh;
+            padding: 40px 10px;
+            box-sizing: border-box;
+        }
+
+        .container {
+            background-color: var(--card-bg-color);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: var(--box-shadow);
+            width: 100%;
+            max-width: 500px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            color: var(--button-color);
+            font-size: 1.8rem;
+            font-weight: 800;
+            line-height: 1.4;
+            margin-bottom: 5px; 
+            text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1:nth-of-type(2) { 
+            margin-top: 0;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 2px dashed var(--text-color);
+        }
+
+        /* 優化 H2 區塊間距 */
+        h2 {
+            color: var(--text-color);
+            font-size: 1.1rem;
+            font-weight: 400;
+            margin: 0; 
+        }
+        .subtitle-line-1 {
+            font-weight: 600;
+            font-size: 1.2rem;
+            margin-top: 15px; 
+        }
+        .subtitle-line-2 {
+            margin-top: 5px; 
+            margin-bottom: 25px; 
+        }
+        /* ------------------- */
+        
+        h3 {
+            color: var(--main-bg-color);
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-top: 15px; /* 修正：縮小與上方的間距 */
+            margin-bottom: 20px; /* 修正：縮小與下方的間距 */
+        }
+
+        input[type="number"] {
+            width: calc(100% - 20px);
+            padding: 15px 10px;
+            border: 3px solid var(--main-bg-color);
+            border-radius: 10px;
+            box-sizing: border-box;
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 20px;
+            transition: border-color 0.3s;
+        }
+
+        /* --- Placeholder 淡化樣式 --- */
+        input[type="number"]::-webkit-input-placeholder { 
+            color: rgba(45, 52, 54, 0.5); 
+            font-weight: 400;
+        }
+        input[type="number"]:-moz-placeholder { 
+            color: rgba(45, 52, 54, 0.5);
+            font-weight: 400;
+        }
+        input[type="number"]::-moz-placeholder { 
+            color: rgba(45, 52, 54, 0.5);
+            font-weight: 400;
+        }
+        input[type="number"]:-ms-input-placeholder { 
+            color: rgba(45, 52, 54, 0.5);
+            font-weight: 400;
+        }
+        /* ------------------------------------- */
+        
+        input[type="number"]:focus {
+            outline: none;
+            border-color: var(--button-color);
+        }
+
+        /* 核心按鈕樣式 */
+        #calculateBtn {
+            width: 100%;
+            padding: 18px;
+            background-color: var(--button-color);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.2rem;
+            font-weight: 800;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.1s;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 0 var(--button-hover-color);
+        }
+
+        #calculateBtn:active {
+            transform: translateY(4px);
+            box-shadow: none;
+        }
+
+        /* 結果區塊 */
+        .output-section {
+            margin-top: 35px;
+            padding-top: 15px; /* 修正：縮小與頂部分隔線的間距 */
+            border-top: 1px dashed var(--text-color);
+            text-align: left;
+        }
+
+        .result-item {
+            display: flex;
+            align-items: center; /* 讓內容垂直居中 */
+            margin-bottom: 15px; /* 縮小卡片間距 */
+            font-size: 1.1rem;
+            line-height: 1.4;
+            background-color: #ffffff;
+            padding: 12px; 
+            border-radius: 8px; 
+            border: 1px solid var(--border-color); 
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+        
+        /* 新增：將內容分為標題和描述 */
+        .item-text-container {
+            flex-grow: 1; /* 讓文字容器佔滿剩餘空間 */
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        
+        .item-title {
+            font-weight: 700; /* 讓主要成就名稱更粗 */
+            line-height: 1.2;
+        }
+        
+        .item-description {
+            font-size: 0.95rem; /* 讓描述文字略小 */
+            color: #5e5e5e; 
+            margin-top: 2px;
+            font-weight: 400;
+        }
+        /* -------------------------- */
+
+
+        .result-value {
+            font-weight: 800;
+            color: var(--output-color);
+            font-size: 1.3rem;
+            margin: 0 5px;
+        }
+        
+        .result-icon {
+            font-size: 1.8rem;
+            margin-right: 15px; /* 增加圖標和文字的間距 */
+            flex-shrink: 0; 
+        }
+        
+        .conclusion {
+            margin-top: 15px; /* 縮小與上方的間距 */
+            padding: 20px;
+            background-color: #ffeaa7; 
+            border-radius: 10px;
+            font-weight: 700;
+            color: #d62d7c;
+        }
+
+        /* 變現區塊 (NEW) */
+        #affiliateSection {
+            margin-top: 20px; /* 縮小與上方的間距 */
+            padding: 25px;
+            background-color: var(--main-bg-color);
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        #affiliateSection h3 {
+            color: var(--header-color);
+            margin-top: 0;
+            font-size: 1.1rem; 
+            font-weight: 600;
+            line-height: 1.4;
+            margin-bottom: 20px;
+        }
+        
+        #affiliateSection h3 br {
+            display: block;
+            content: "";
+            margin-bottom: 0; /* 修正換行間距 */
+        }
+
+        #affiliateBtnGroup {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap; 
+            justify-content: center;
+        }
+
+        .affiliate-btn {
+            flex: 1 1 45%; 
+            padding: 15px;
+            background-color: var(--pro-color); 
+            color: var(--text-color);
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 800;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.1s;
+            box-shadow: 0 3px 0 #e1b12c;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .affiliate-btn:active {
+            transform: translateY(3px);
+            box-shadow: none;
+        }
+
+        .notes {
+            margin-top: 30px;
+            font-size: 0.8rem;
+            text-align: center;
+            color: #555;
+        }
+        
+        /* 週末輕旅行區塊樣式 */
+        #tripGoalSummary {
+            margin-top: 20px; /* 縮小與上方的間距 */
+            padding: 15px; 
+            border: 1px dashed var(--main-bg-color); 
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 20px; /* 縮小與下方的間距 */
+        }
+        
+        .trip-goal-line-1 {
+            font-size: 1.1rem; 
+            line-height: 1.4; 
+            margin-bottom: 5px; /* 緊密貼合 */
+        }
+        
+        .trip-goal-line-2 {
+            font-size: 1.1rem; 
+            line-height: 1.4; 
+            margin-top: 0; 
+            margin-bottom: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- 標題優化：將 H1 分為兩部分 -->
+        <h1>💥 停止虛無感！💥</h1>
+        <h1>【荒謬消費等價計算機】<br>— 你的忍耐，到底值多少？—</h1>
+        
+        <!-- H2 修正：使用 class 控制間距 -->
+        <h2 class="subtitle-line-1">輸入你「忍住沒花」的金額</h2>
+        <h2 class="subtitle-line-2">我們將它翻譯成你人生中最具體的財富！</h2>
+
+        <section id="input-fields">
+            <label for="inputAmount" style="display:block; margin-bottom: 10px; font-weight: 600; color: var(--text-color);">
+                請輸入你這次「忍住沒買」或「省下來」的金額 (NTD)：
+            </label>
+            <input type="number" id="inputAmount" placeholder="例如：1000" min="0">
+            
+            <button type="button" id="calculateBtn" onclick="calculateValue()">✨ 啟動價值翻譯 (點此見證奇蹟) ✨</button>
+        </section>
+
+        <!-- 結果呈現區塊 -->
+        <section id="output-results" class="output-section" style="display:none;">
+            <h3>【你的自制力，價值連城！】</h3>
+            
+            <p style="text-align: center; font-size: 1.1rem; margin-bottom: 15px;">
+                恭喜！這筆 <span class="result-value" id="finalAmount"></span> 的金額，讓你的人生達到了：
+            </p>
+
+            <div class="result-item" id="teaEggItem">
+                <span class="result-icon">🥚</span>
+                <div class="item-text-container">
+                    <div class="item-title">
+                        茶葉蛋富翁：你現在擁有 <span class="result-value" id="teaEggQty">0</span> 顆 茶葉蛋！
+                    </div>
+                    <div class="item-description">
+                        (<span id="teaEggYears"></span>)
+                    </div>
+                </div>
+            </div>
+
+            <div class="result-item" id="chickenFilletItem">
+                <span class="result-icon">⭐</span>
+                <div class="item-text-container">
+                    <div class="item-title">
+                        雞排小確幸：夠你享受 <span class="result-value" id="chickenFilletQty">0</span> 次 臺灣雞排的快樂！
+                    </div>
+                </div>
+            </div>
+
+            <div class="result-item" id="bobaTeaItem">
+                <span class="result-icon">🥤</span>
+                <div class="item-text-container">
+                    <div class="item-title">
+                        飲料山脈：夠你喝下 <span class="result-value" id="bobaTeaQty">0</span> 杯 網紅珍珠奶茶！
+                    </div>
+                </div>
+            </div>
+            
+            <div class="result-item" id="movieTicketItem">
+                <span class="result-icon">🍿</span>
+                <div class="item-text-container">
+                    <div class="item-title">
+                        電影票自由：夠你請 <span class="result-value" id="movieTicketQty">0</span> 位朋友，一起看一場最新的大片！
+                    </div>
+                </div>
+            </div>
+            
+            <div class="result-item" id="mrtTicketItem">
+                <span class="result-icon">🚇</span>
+                <div class="item-text-container">
+                    <div class="item-title">
+                        通勤自由：夠你享受 <span class="result-value" id="mrtTicketQty">0</span> 趟 捷運單程票的自由！
+                    </div>
+                </div>
+            </div>
+
+            <div class="result-item" id="catLitterItem">
+                <span class="result-icon">🛁</span>
+                <div class="item-text-container">
+                    <div class="item-title">
+                        豪華貓砂豪宅：夠你的貓買 <span class="result-value" id="catLitterQty">0</span> 包 頂級貓砂，享受一個月！
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 週末輕旅行目標 (已精簡) -->
+            <div id="tripGoalSummary">
+                <p style="font-weight: 600; font-size: 1.05rem; color: var(--text-color); margin-top: 0;">
+                    ✈️ 【週末輕旅行基金】
+                </p>
+                <p class="trip-goal-line-1">
+                    你只需要再忍耐 <span class="result-value" id="impulsesNeeded" style="font-size: 1.4rem;">0</span> 次這樣的消費衝動
+                </p>
+                <p class="trip-goal-line-2">
+                    就能完全換取一次 <span style="font-weight: 700; color: var(--text-color);">高鐵輕旅行</span>！
+                </p>
+            </div>
+            
+            <p class="conclusion">
+                🔥 別再浪費你的自制力！你的錢比你想像的更有價值！
+            </p>
+            
+            <!-- 變現與導流區塊 (更新為雙按鈕 KLOOK/住宿連結) -->
+            <div id="affiliateSection" style="display: block;">
+                <h3>你的努力值得最好的獎勵。<br>將省下的錢轉化為實質體驗與休息。</h3>
+                <div id="affiliateBtnGroup">
+                    <a id="affiliateBtnA" class="affiliate-btn" target="_blank"
+                       href="https://www.klook.com/zh-TW/experiences/list/day-trips/cate10/?spm=TNA_ActivityList.TopNavigation.SelectCurrency&clickId=2b75ec3b9a">
+                        🚀 點此啟動【週末行程體驗】
+                    </a>
+                    <a id="affiliateBtnB" class="affiliate-btn" target="_blank"
+                       href="https://affone.site/track/clicks/3455/c627c2bc980623ddfa82ec23d62e9740236645df2aabebf70365b713210652aa8272f4">
+                        🛏️ 點此來去【舒適放鬆住宿】
+                    </a>
+                </div>
+            </div>
+            
+        </section>
+
+        <div class="notes">
+            * 換算價格僅為趣味參考：茶葉蛋 $13 NTD / 雞排 $90 NTD / 珍珠奶茶 $80 NTD / 捷運票 $25 NTD / 電影票 $350 NTD / 頂級貓砂 $600 NTD (每包供貓咪使用一個月)。
+        </div>
+
+    </div>
+
+    <!-- 底部版權資訊 -->
+    <div style="text-align: center; color: white; margin-top: 20px; font-size: 0.85rem;">
+        Widget Lab 版權所有 | widgetlab.service@gmail.com
+    </div>
+
+    <script>
+        // --- 核心換算價格定義 ---
+        const PRICES = {
+            TEA_EGG: 13,
+            MOVIE_TICKET: 350,
+            CAT_LITTER: 600,
+            CHICKEN_FILLET: 90,
+            BOBA_TEA: 80,
+            MRT_TICKET: 25,
+            WEEKEND_TRIP: 4500 // 週末輕旅行基金目標
+        };
+
+        // --- 輔助函式 ---
+        function formatNumber(num) {
+            return Math.floor(num).toLocaleString('zh-TW');
+        }
+
+        function showCustomAlert(message) {
+             let alertBox = document.getElementById('customAlertBox');
+             if (!alertBox) {
+                 alertBox = document.createElement('div');
+                 alertBox.id = 'customAlertBox';
+                 document.body.appendChild(alertBox);
+                 alertBox.style.cssText = `
+                     position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
+                     padding: 12px 25px; background-color: var(--button-color); color: white;
+                     border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); z-index: 1000;
+                     font-weight: 700; opacity: 0; transition: opacity 0.3s;
+                 `;
+             }
+             alertBox.textContent = message;
+             alertBox.style.opacity = '1';
+             
+             setTimeout(() => {
+                 alertBox.style.opacity = '0';
+             }, 3000); 
+        }
+
+        // --- 核心計算邏輯 ---
+        function calculateValue() {
+            const inputElement = document.getElementById('inputAmount');
+            const amount = parseFloat(inputElement.value);
+
+            if (isNaN(amount) || amount <= 0) {
+                showCustomAlert('請輸入有效的金額！');
+                document.getElementById('output-results').style.display = 'none';
+                return;
+            }
+            
+            // 重新顯示所有項目，確保在重新計算時能正確切換顯示/隱藏
+            document.querySelectorAll('.result-item').forEach(item => item.style.display = 'flex');
+
+            // 1. 茶葉蛋計算 (Tea Egg)
+            const teaEggQty = Math.floor(amount / PRICES.TEA_EGG);
+            const teaEggYears = Math.floor(teaEggQty / 365);
+            let eggTimeText;
+            if (teaEggYears >= 1) {
+                eggTimeText = `夠你吃 ${formatNumber(teaEggYears)} 年的早餐！`;
+            } else if (teaEggQty >= 30) {
+                 eggTimeText = `夠你吃 ${formatNumber(Math.floor(teaEggQty / 30))} 個月的早餐！`;
+            } else {
+                 eggTimeText = `可以讓你連吃 ${formatNumber(teaEggQty)} 天！`;
+            }
+            if (teaEggQty === 0) {
+                document.getElementById('teaEggItem').style.display = 'none';
+            } else {
+                document.getElementById('teaEggQty').textContent = formatNumber(teaEggQty);
+                document.getElementById('teaEggYears').textContent = eggTimeText;
+            }
+
+
+            // 2. 電影票計算 (Movie Ticket)
+            const movieTicketQty = Math.floor(amount / PRICES.MOVIE_TICKET);
+            const friendCount = Math.floor(movieTicketQty * 1);
+            if (movieTicketQty === 0) {
+                document.getElementById('movieTicketItem').style.display = 'none';
+            } else {
+                document.getElementById('movieTicketQty').textContent = formatNumber(friendCount);
+            }
+            
+            // 3. 貓砂計算 (Cat Litter)
+            const catLitterQty = Math.floor(amount / PRICES.CAT_LITTER);
+            if (catLitterQty === 0) {
+                document.getElementById('catLitterItem').style.display = 'none';
+            } else {
+                document.getElementById('catLitterQty').textContent = formatNumber(catLitterQty);
+            }
+            
+            // 4. 雞排計算 (Chicken Fillet)
+            const chickenFilletQty = Math.floor(amount / PRICES.CHICKEN_FILLET);
+            if (chickenFilletQty === 0) {
+                document.getElementById('chickenFilletItem').style.display = 'none';
+            } else {
+                document.getElementById('chickenFilletQty').textContent = formatNumber(chickenFilletQty);
+            }
+
+            // 5. 珍珠奶茶計算 (Boba Tea)
+            const bobaTeaQty = Math.floor(amount / PRICES.BOBA_TEA);
+            if (bobaTeaQty === 0) {
+                document.getElementById('bobaTeaItem').style.display = 'none';
+            } else {
+                document.getElementById('bobaTeaQty').textContent = formatNumber(bobaTeaQty);
+            }
+
+            // 6. 捷運單程票計算 (MRT Ticket)
+            const mrtTicketQty = Math.floor(amount / PRICES.MRT_TICKET);
+            if (mrtTicketQty === 0) {
+                document.getElementById('mrtTicketItem').style.display = 'none';
+            } else {
+                document.getElementById('mrtTicketQty').textContent = formatNumber(mrtTicketQty);
+            }
+            
+            // --- 夢想進度條計算 ---
+            const tripGoal = PRICES.WEEKEND_TRIP;
+            let impulsesNeeded = 1; 
+            if (amount < tripGoal) {
+                impulsesNeeded = Math.ceil(tripGoal / amount);
+            } else {
+                impulsesNeeded = 1;
+            }
+
+
+            // --- 更新 DOM ---
+            document.getElementById('finalAmount').textContent = formatNumber(amount) + ' 元';
+            document.getElementById('impulsesNeeded').textContent = formatNumber(impulsesNeeded);
+
+
+            // 顯示結果區塊
+            document.getElementById('output-results').style.display = 'block';
+            document.getElementById('output-results').scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+
+</body>
+</html>
