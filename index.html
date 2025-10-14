@@ -87,8 +87,8 @@
             color: var(--main-bg-color);
             font-size: 1.6rem;
             font-weight: 700;
-            margin-top: 15px; /* 修正：縮小與上方的間距 */
-            margin-bottom: 20px; /* 修正：縮小與下方的間距 */
+            margin-top: 15px; 
+            margin-bottom: 20px; 
         }
 
         input[type="number"] {
@@ -152,15 +152,15 @@
         /* 結果區塊 */
         .output-section {
             margin-top: 35px;
-            padding-top: 15px; /* 修正：縮小與頂部分隔線的間距 */
+            padding-top: 15px; 
             border-top: 1px dashed var(--text-color);
             text-align: left;
         }
 
         .result-item {
             display: flex;
-            align-items: center; /* 讓內容垂直居中 */
-            margin-bottom: 15px; /* 縮小卡片間距 */
+            align-items: center; 
+            margin-bottom: 15px; 
             font-size: 1.1rem;
             line-height: 1.4;
             background-color: #ffffff;
@@ -172,19 +172,19 @@
         
         /* 新增：將內容分為標題和描述 */
         .item-text-container {
-            flex-grow: 1; /* 讓文字容器佔滿剩餘空間 */
+            flex-grow: 1; 
             display: flex;
             flex-direction: column;
             align-items: flex-start;
         }
         
         .item-title {
-            font-weight: 700; /* 讓主要成就名稱更粗 */
+            font-weight: 700; 
             line-height: 1.2;
         }
         
         .item-description {
-            font-size: 0.95rem; /* 讓描述文字略小 */
+            font-size: 0.95rem; 
             color: #5e5e5e; 
             margin-top: 2px;
             font-weight: 400;
@@ -201,12 +201,12 @@
         
         .result-icon {
             font-size: 1.8rem;
-            margin-right: 15px; /* 增加圖標和文字的間距 */
+            margin-right: 15px; 
             flex-shrink: 0; 
         }
         
         .conclusion {
-            margin-top: 15px; /* 縮小與上方的間距 */
+            margin-top: 15px; 
             padding: 20px;
             background-color: #ffeaa7; 
             border-radius: 10px;
@@ -216,7 +216,7 @@
 
         /* 變現區塊 (NEW) */
         #affiliateSection {
-            margin-top: 20px; /* 縮小與上方的間距 */
+            margin-top: 20px; 
             padding: 25px;
             background-color: var(--main-bg-color);
             border-radius: 10px;
@@ -235,7 +235,7 @@
         #affiliateSection h3 br {
             display: block;
             content: "";
-            margin-bottom: 0; /* 修正換行間距 */
+            margin-bottom: 0; 
         }
 
         #affiliateBtnGroup {
@@ -275,18 +275,18 @@
         
         /* 週末輕旅行區塊樣式 */
         #tripGoalSummary {
-            margin-top: 20px; /* 縮小與上方的間距 */
+            margin-top: 20px; 
             padding: 15px; 
             border: 1px dashed var(--main-bg-color); 
             border-radius: 8px;
             text-align: center;
-            margin-bottom: 20px; /* 縮小與下方的間距 */
+            margin-bottom: 20px; 
         }
         
         .trip-goal-line-1 {
             font-size: 1.1rem; 
             line-height: 1.4; 
-            margin-bottom: 5px; /* 緊密貼合 */
+            margin-bottom: 5px; 
         }
         
         .trip-goal-line-2 {
@@ -294,6 +294,51 @@
             line-height: 1.4; 
             margin-top: 0; 
             margin-bottom: 0;
+        }
+
+        /* 新增：機會成本說明區塊樣式 */
+        #opportunityCost {
+            margin-top: 40px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            text-align: left;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        #opportunityCost h4 {
+            color: var(--button-color);
+            font-weight: 800;
+            font-size: 1.2rem;
+            margin-top: 0;
+            padding-bottom: 8px;
+            border-bottom: 1px dashed var(--button-color);
+            margin-bottom: 15px;
+        }
+        #opportunityCost p {
+            line-height: 1.7;
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+            color: #555;
+        }
+
+        /* 底部連結樣式 */
+        .footer-links {
+            margin-top: 25px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            font-size: 0.9rem;
+        }
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            opacity: 0.8;
+            transition: opacity 0.2s;
+        }
+        .footer-links a:hover {
+            opacity: 1;
         }
     </style>
 </head>
@@ -408,10 +453,18 @@
                         🚀 點此啟動【週末行程體驗】
                     </a>
                     <a id="affiliateBtnB" class="affiliate-btn" target="_blank"
-                       href="https://affone.site/track/clicks/3455/c627c2bc980623ddfa82ec23d62e9740236645df2aabebf70365b713210652aa8272f4">
+                       href="https://affone.site/track/clicks/3455/c627c2bc980623ddfa82ec23d62e9740236645df2aabebf7036645df2aabebf70365b713210652aa8272f4">
                         🛏️ 點此來去【舒適放鬆住宿】
                     </a>
                 </div>
+            </div>
+            
+            <!-- 新增：機會成本說明區塊 (已移入結果區塊) -->
+            <div id="opportunityCost">
+                <h4>關於機會成本：你真的省到了嗎？</h4>
+                <p>這個計算儀的核心在於「<strong>機會成本 (Opportunity Cost)</strong>」。當你決定不花錢購買一件非必需品時，你省下的不只是等值的現金。你真正獲得的是將這筆資金投入到其他更有價值、能帶來更高回報的事情上的「<strong>機會</strong>」。</p>
+                <p>我們的工具就是將這種抽象的機會具體化：每一次克制衝動，都讓你更接近一次<strong>高鐵輕旅行</strong>或更多的<strong>雞排小確幸</strong>。這並非是為了禁止你消費，而是希望你意識到每一次消費決策都比你想像的更有重量。</p>
+                <p>下一次當你準備衝動購物時，請先問問自己：這值得我犧牲掉幾次雞排小確幸，或是幾張電影票的自由嗎？用具體的價值來衡量慾望，你會做出更明智的財務選擇。</p>
             </div>
             
         </section>
@@ -419,11 +472,17 @@
         <div class="notes">
             * 換算價格僅為趣味參考：茶葉蛋 $13 NTD / 雞排 $90 NTD / 珍珠奶茶 $80 NTD / 捷運票 $25 NTD / 電影票 $350 NTD / 頂級貓砂 $600 NTD (每包供貓咪使用一個月)。
         </div>
-
+    </div>
+    
+    <!-- 底部導航連結 -->
+    <div class="footer-links">
+        <a href="about.html">關於我們</a> | 
+        <a href="contact.html">聯絡我們</a> | 
+        <a href="privacy.html">隱私權政策</a>
     </div>
 
     <!-- 底部版權資訊 -->
-    <div style="text-align: center; color: white; margin-top: 20px; font-size: 0.85rem;">
+    <div style="text-align: center; color: white; margin-top: 5px; font-size: 0.85rem;">
         Widget Lab 版權所有 | widgetlab.service@gmail.com
     </div>
 
